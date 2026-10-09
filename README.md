@@ -1,6 +1,6 @@
 # Abridor Simuleitor
 
-Prototipo v1.6.0. Paquete de figuritas y carta en blanco y negro, con colores planos. Tocá la esquina superior: se desprende el borde sellado y sale una carta holográfica. La carta responde al mouse o al dedo; en celulares compatibles, el botón Activar movimiento habilita el sensor (HTTPS y permiso del navegador).
+Prototipo v1.7.0. Paquete de figuritas y carta en blanco y negro, con colores planos. Tocá la esquina superior: se desprende el borde sellado y sale una carta holográfica. La carta responde al mouse o al dedo; en celulares compatibles, el botón Activar movimiento habilita el sensor (HTTPS y permiso del navegador).
 
 Sin instalación ni compilación. Para probar localmente:
 

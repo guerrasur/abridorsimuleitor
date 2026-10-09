@@ -45,3 +45,5 @@ Mecánica adaptada de `guerrasur/suiload-web/web/device.js`.
 - Desde v1.5.3 no desvanecer el sobre ni la tira: salen físicamente del viewport. Mantener opacity:1 en todos sus keyframes y ocultarlos solo cuando ya estén fuera de pantalla.
 
 - Desde v1.6.0 arrastrar el sello superior al menos 60px y soltar abre el sobre. La tira sigue el dedo y la animación continúa desde esa posición. Arrastres cortos/cancelados vuelven al inicio; conservar tap y teclado como alternativas. Pointer capture, bloqueo de clic sintético después de arrastrar y actualización pospuesta durante el gesto.
+
+- Desde v1.7.0 la apertura termina en peek: carta asomada, sobre quieto. Arrastrar carta hacia arriba al menos 80px y soltar completa la extracción y recién entonces cae el sobre. Cancelar vuelve a peek. Enter/Espacio como alternativa accesible. Restaurar peek y personaje al actualizar; evitar sensor/inclinación durante extracción.
