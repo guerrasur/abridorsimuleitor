@@ -28,3 +28,5 @@ Mecánica adaptada de `guerrasur/suiload-web/web/device.js`.
 - Dibujos SVG por capas, colores planos y contornos negros. Mantener todas las combinaciones dentro del viewBox y la cara legible.
 - Generar exactamente una vez al abrir cada sobre, nunca al mover la carta. Preservar el mismo personaje después de la actualización automática y validar los índices al restaurar.
 - Ampliar variantes en TRAITS junto con sus dibujos/paletas; incrementar schema si cambia el significado de índices existentes.
+
+- Desde v1.3.0 los personajes usan landmarks faciales comunes y pelo recortado a cada cabeza; dibujos más suaves inspirados en avatares tipo Mii. Agregar cejas, orejas, lentes, barba y detalles como capas independientes. Schema 2 migra personajes schema 1 con variantes neutras, conservando sus rasgos originales.

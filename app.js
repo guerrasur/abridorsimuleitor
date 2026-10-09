@@ -1,7 +1,7 @@
-import { generateCharacter, isCharacter, renderCharacter, characterName, characterDescription, TRAITS } from './characters.js?v=1.2.0';
-import { APP_VERSION } from './version.js?v=1.2.0';
-import { initCardMotion } from './card-motion.js?v=1.2.0';
-import { initUpdater } from './updater.js?v=1.2.0';
+import { generateCharacter, isCharacter, normalizeCharacter, renderCharacter, characterName, characterDescription, TRAITS } from './characters.js?v=1.3.0';
+import { APP_VERSION } from './version.js?v=1.3.0';
+import { initCardMotion } from './card-motion.js?v=1.3.0';
+import { initUpdater } from './updater.js?v=1.3.0';
 
 const scene = document.getElementById('scene');
 const open = document.getElementById('open');
@@ -66,7 +66,7 @@ reset.addEventListener('click', () => {
 
 // Restore the revealed card after an automatic update instead of interrupting it.
 try {
-  const saved = JSON.parse(sessionStorage.getItem('abridor-character') || 'null');
+  const saved = normalizeCharacter(JSON.parse(sessionStorage.getItem('abridor-character') || 'null')); 
   if (sessionStorage.getItem('abridor-reveal') === 'opened') {
     character = isCharacter(saved) ? saved : generateCharacter();
     paintCharacter();
