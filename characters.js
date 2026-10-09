@@ -1,3 +1,4 @@
+import { generateNameParts, validNameParts, assembleName } from './names.js?v=1.4.0';
 // Independent layers: adding a trait does not require drawing every combination.
 export const TRAITS = Object.freeze({
   head: ['Cuadrada', 'Ovalada', 'Triangular', 'Diamante', 'Ancha', 'Asimétrica', 'Redonda', 'Corazón', 'Mandíbula', 'Pera'],
@@ -29,23 +30,28 @@ function randomIndex(length) {
 }
 export function generateCharacter(pick = randomIndex) {
   const traits = Object.fromEntries(Object.entries(TRAITS).map(([key, values]) => [key, pick(values.length)]));
-  return { schema: 2, traits, first: pick(FIRST.length), last: pick(LAST.length) };
+  return { schema: 3, traits, nameParts: generateNameParts(pick) };
+}
+function validTraits(value) {
+  return Object.entries(TRAITS).every(([key, list]) => Number.isInteger(value.traits?.[key]) && value.traits[key] >= 0 && value.traits[key] < list.length);
 }
 export function isCharacter(value) {
-  return value?.schema === 2 && Object.entries(TRAITS).every(([key, list]) => Number.isInteger(value.traits?.[key]) && value.traits[key] >= 0 && value.traits[key] < list.length)
-    && Number.isInteger(value.first) && value.first >= 0 && value.first < FIRST.length
-    && Number.isInteger(value.last) && value.last >= 0 && value.last < LAST.length;
+  return value?.schema === 3 && validTraits(value)
+    && (validNameParts(value.nameParts) || (typeof value.legacyName === 'string' && value.legacyName.length > 0 && value.legacyName.length < 60));
 }
-export function characterName(value) { return `${FIRST[value.first]} ${LAST[value.last]}`; }
+export function characterName(value) { return value.legacyName || assembleName(value.nameParts); }
 export function characterDescription(value) {
   return Object.entries(TRAITS).map(([key, list]) => `${({head:'Cabeza',skin:'Piel',hair:'Pelo',hairColor:'Color de pelo',eyes:'Ojos',nose:'Nariz',mouth:'Boca',outfit:'Ropa',outfitColor:'Color de ropa',brows:'Cejas',ears:'Orejas',glasses:'Lentes',facialHair:'Barba',accessory:'Detalle',eyeSpacing:'Separación de ojos'})[key]}: ${list[value.traits[key]]}`).join(' · ');
 }
 
-// Keep a revealed v1 character after updating, adding neutral defaults for new layers.
+// Preserve the appearance and name of cards already revealed by older versions.
 export function normalizeCharacter(value) {
   if (isCharacter(value)) return value;
-  if (value?.schema !== 1) return null;
-  const upgraded = { ...value, schema: 2, traits: { ...value.traits, brows: 0, ears: 0, glasses: 0, facialHair: 0, accessory: 0, eyeSpacing: 1 } };
+  if (![1, 2].includes(value?.schema)) return null;
+  const traits = value.schema === 1 ? { ...value.traits, brows: 0, ears: 0, glasses: 0, facialHair: 0, accessory: 0, eyeSpacing: 1 } : value.traits;
+  if (!Number.isInteger(value.first) || value.first < 0 || value.first >= FIRST.length
+    || !Number.isInteger(value.last) || value.last < 0 || value.last >= LAST.length) return null;
+  const upgraded = { schema: 3, traits, legacyName: `${FIRST[value.first]} ${LAST[value.last]}` };
   return isCharacter(upgraded) ? upgraded : null;
 }
 export function renderCharacter(value) {
