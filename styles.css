@@ -78,3 +78,15 @@ main{display:block;justify-content:center;align-items:center}
 .scene.extracting .card-lift{transition:none}
 .scene.peek .flap,.scene.extracting .flap{visibility:hidden;pointer-events:none}
 .scene.peek .envelope-front,.scene.peek .envelope-back{transform:none;opacity:1;visibility:visible}
+
+/* Direct finger tracking, with an explicit return animation managed in JS. */
+.scene.peek .card-lift,.scene.returning .card-lift{transition:none;user-select:none;-webkit-user-select:none;touch-action:none}
+.scene.returning .card-lift{visibility:visible;opacity:1;transform:translateY(-110px) scale(.96);z-index:1}
+.scene.returning .flap{visibility:hidden;pointer-events:none}
+.card-lift.pulling{cursor:grabbing;will-change:transform}
+.card-lift.pull-ready .card{box-shadow:7px 7px 0 #000}
+.controls{flex-wrap:wrap;gap:6px}
+.browse-controls{position:absolute;top:calc(50% + 300px);left:0;right:0;display:flex;align-items:center;justify-content:center;gap:20px;font-size:12px}
+.browse-controls button{border:1px solid #000;background:#fff;color:#000;width:42px;height:34px}
+@media(max-height:700px){.browse-controls{top:calc(50% + 257px)}}
+@media(max-height:560px){.browse-controls{top:calc(50% + 217px)}}

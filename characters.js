@@ -1,4 +1,4 @@
-import { generateNameParts, validNameParts, assembleName } from './names.js?v=1.7.0';
+import { generateNameParts, validNameParts, assembleName } from './names.js?v=1.8.0';
 // Independent layers: adding a trait does not require drawing every combination.
 export const TRAITS = Object.freeze({
   head: ['Cuadrada', 'Ovalada', 'Triangular', 'Diamante', 'Ancha', 'Asimétrica', 'Redonda', 'Corazón', 'Mandíbula', 'Pera'],
@@ -56,6 +56,7 @@ export function normalizeCharacter(value) {
 }
 export function renderCharacter(value) {
   if (!isCharacter(value)) throw new Error('Personaje inválido');
+  if (value.number === 4 && value.art === 'yellow-snout') return renderCuasi();
   const t=value.traits, skin=SKIN[t.skin], hair=HAIR[t.hairColor], cloth=CLOTH[t.outfitColor];
   // Every face uses the same landmarks. Heads change around them, not through them.
   const heads=[
@@ -157,4 +158,9 @@ export function renderCharacter(value) {
   const glasses=['','','', '<circle cx="91" cy="100" r="19"/><circle cx="149" cy="100" r="19"/><path d="M110 99h20M62 96l10 3m96 0 10-3"/>','<rect x="72" y="84" width="39" height="31" rx="6"/><rect x="129" y="84" width="39" height="31" rx="6"/><path d="M111 96h18M62 96h10m96 0h10"/>','<rect x="73" y="92" width="38" height="17" rx="5"/><rect x="129" y="92" width="38" height="17" rx="5"/><path d="M111 98h18"/>'];
   const detail=['','','<g fill="#111" stroke="none"><circle cx="79" cy="123" r="2"/><circle cx="88" cy="127" r="2"/><circle cx="81" cy="132" r="2"/><circle cx="161" cy="123" r="2"/><circle cx="152" cy="127" r="2"/><circle cx="159" cy="132" r="2"/></g>','<g fill="#fff" stroke="none" opacity=".4"><ellipse cx="84" cy="126" rx="11" ry="6"/><ellipse cx="156" cy="126" rx="11" ry="6"/></g>','<circle cx="184" cy="127" r="7" fill="#ffdc22"/>','<g transform="rotate(-25 154 124)"><rect x="140" y="119" width="28" height="10" rx="3" fill="#fff"/><path d="M151 120v8m6-8v8" stroke-width="1"/></g>'];
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 310" aria-hidden="true" focusable="false"><defs><clipPath id="head-mask"><path d="${head}"/></clipPath><clipPath id="shirt-mask"><path d="M101 184Q88 184 80 200L85 251H155l5-51q-8-16-21-16Z"/></clipPath></defs><g stroke="#111" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"><path d="M94 244h52l-3 44h-17l-6-30-6 30H97Z" fill="#111"/><path d="M95 285h19v12H86q-2-9 9-12Zm31 0h19q11 3 9 12h-28Z" fill="#fff"/><g fill="${skin}"><path d="M110 155h20v36h-20Z"/><path d="M85 197q-13 14-17 40m87-40q13 14 17 40" fill="none" stroke="${skin}" stroke-width="14"/><ellipse cx="66" cy="243" rx="9" ry="11"/><ellipse cx="174" cy="243" rx="9" ry="11"/></g><path d="M101 184Q88 184 80 200L85 251H155l5-51q-8-16-21-16Z" fill="${cloth}"/><g clip-path="url(#shirt-mask)">${clothes[t.outfit]}</g><path d="M107 184q13 12 26 0" fill="none"/><g fill="${hair}">${crowns[t.hair]}</g><g fill="${skin}">${ears[t.ears]}<path d="${head}"/></g><g clip-path="url(#head-mask)" fill="${hair}">${hairFront[t.hair]}</g><g fill="none" stroke="${hair}" stroke-width="4">${brows[t.brows]}</g>${eyes}<g fill="none">${noses[t.nose]}</g>${detail[t.accessory]}${mouths[t.mouth]}<g fill="${hair}" stroke="${hair}">${facialHair[t.facialHair]}</g><g fill="none" stroke-width="3">${glasses[t.glasses]}</g></g></svg>`;
+}
+
+// A yellow, long-snouted alter ego, using the edition's flat shapes and contours.
+function renderCuasi() {
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 310" aria-hidden="true" focusable="false"><g stroke="#111" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"><path d="M94 237h52l6 48 10 12h-35l-8-36-6 36H79l11-14Z" fill="#ffdc22"/><path d="M96 168q-19 11-22 37l-9 37q2 13 16 10l10-41 1 41h57l1-44 10 41q15 7 17-9l-10-40q-6-23-27-32Z" fill="#ffdc22"/><path d="M106 151h27v36h-27" fill="#ffdc22"/><path d="M69 76 70 34q13-14 23 7l7 20q18-7 38-1l6-25q12-16 21 1l2 45q9 11 7 22l31 9q12 3 9 21-1 10-13 9l-41-3q-16 28-47 29-39-1-46-36-8-25 2-46Z" fill="#ffdc22"/><path d="m78 61 1-17 9 16m62 0 6-16 3 20" fill="none"/><path d="m105 91 9 2-6 5-6-6" fill="#111"/><ellipse cx="145" cy="94" rx="4" ry="3" fill="#111"/><path d="M204 122v6m-5-7v4m-81 25 15-2" fill="none"/><g fill="#111" stroke="none"><circle cx="79" cy="110" r="1.4"/><circle cx="83" cy="119" r="1.4"/><circle cx="77" cy="126" r="1.4"/><circle cx="92" cy="208" r="1.4"/><circle cx="143" cy="239" r="1.4"/></g><path d="m58 236 26-5 25 12-4 26-29 2-23-13Z" fill="#ff3030"/><path d="m58 236 23 12 28-5m-28 5-5 23" fill="none"/></g></svg>`;
 }

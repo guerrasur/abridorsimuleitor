@@ -26,6 +26,7 @@ export function initPackSwipe(button, { canStart, onOpen, onIdle = () => {} }) {
   });
   function finish(event, cancelled = false) {
     if (!drag || event.pointerId !== drag.id) return;
+    if (!cancelled) drag.distance = Math.hypot(event.clientX - drag.x, event.clientY - drag.y);
     const current = drag;
     drag = null;
     if (button.hasPointerCapture(current.id)) button.releasePointerCapture(current.id);
@@ -48,5 +49,5 @@ export function initPackSwipe(button, { canStart, onOpen, onIdle = () => {} }) {
     }
     suppressClick = false;
   }, true);
-  return { isDragging: () => drag !== null, reset: () => { drag = null; suppressClick = false; clearPreview(); } };
+  return { isDragging: () => drag !== null, reset: () => { const current = drag; drag = null; if (current && button.hasPointerCapture(current.id)) button.releasePointerCapture(current.id); suppressClick = false; clearPreview(); } };
 }

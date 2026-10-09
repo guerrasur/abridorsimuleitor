@@ -5,28 +5,29 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#ffffff">
   <title>Abridor Simuleitor</title>
-  <link rel="stylesheet" href="./styles.css?v=1.7.0">
+  <link rel="stylesheet" href="./styles.css?v=1.8.0">
 </head>
 <body>
-  <header><span>Abridor Simuleitor <small id="version">v1.7.0</small></span><button id="update" type="button">Actualizar</button></header>
+  <header><span>Abridor Simuleitor <small id="version">v1.8.0</small></span><button id="update" type="button">Actualizar</button></header>
   <main>
     <div class="scene" id="scene">
       <div class="envelope-back" aria-hidden="true"></div>
       <div class="card-lift" id="card-lift" inert>
         <article class="card" id="card" aria-label="Carta holográfica número uno">
-          <div class="card-heading"><span>PRIMERA EDICIÓN</span><span>001</span></div>
+          <div class="card-heading"><span>PRIMERA EDICIÓN</span><span id="card-number">001</span></div>
           <div class="art character-art" id="character-art"></div>
-          <div class="card-footer"><span>CARTA 001</span><strong id="character-name">Personaje sorpresa</strong><p id="character-traits">Una combinación en cada sobre.</p></div>
+          <div class="card-footer"><span id="card-label">CARTA 001</span><strong id="character-name">Personaje sorpresa</strong><p id="character-traits">Una combinación en cada sobre.</p></div>
         </article>
       </div>
       <div class="envelope-front" aria-hidden="true"><svg class="pack-star" viewBox="0 0 100 100" focusable="false"><path d="M50 4C61 32 68 39 96 50 68 61 61 68 50 96 39 68 32 61 4 50 32 39 39 32 50 4Z"/></svg></div>
       <button class="flap" id="open" aria-label="Arrastrar el borde superior para abrir el sobre; también podés tocarlo"></button>
     </div>
     <p id="instruction" class="instruction" aria-live="polite"></p>
-    <div class="controls"><button id="motion" type="button" aria-pressed="false" hidden>Activar movimiento</button><button id="reset" type="button" hidden>Abrir otro sobre</button></div>
+    <div class="controls"><button id="album" type="button">Ver personajes</button><button id="motion" type="button" aria-pressed="false" hidden>Activar movimiento</button><button id="reset" type="button" hidden>Abrir otro sobre</button></div>
+    <div id="browse-controls" class="browse-controls" hidden><button id="previous-character" aria-label="Personaje anterior">←</button><span id="catalog-position" aria-live="polite">001 / 089</span><button id="next-character" aria-label="Personaje siguiente">→</button></div>
     <p id="motion-hint" class="hint" hidden></p>
     <p id="update-status" class="hint" role="status"></p>
   </main>
-  <script type="module" src="./app.js?v=1.7.0"></script>
+  <script type="module" src="./app.js?v=1.8.0"></script>
 </body>
 </html>
