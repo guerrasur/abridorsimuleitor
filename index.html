@@ -5,28 +5,28 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#ffffff">
   <title>Abridor Simuleitor</title>
-  <link rel="stylesheet" href="./styles.css?v=1.0.0">
+  <link rel="stylesheet" href="./styles.css?v=1.1.0">
 </head>
 <body>
-  <header><span>Abridor Simuleitor <small id="version">v1.0.0</small></span><button id="update" type="button">Actualizar</button></header>
+  <header><span>Abridor Simuleitor <small id="version">v1.1.0</small></span><button id="update" type="button">Actualizar</button></header>
   <main>
     <div class="scene" id="scene">
       <div class="envelope-back" aria-hidden="true"></div>
       <div class="card-lift" id="card-lift" inert>
         <article class="card" id="card" aria-label="Carta holográfica número uno">
           <div class="card-heading"><span>PRIMERA EDICIÓN</span><span>001</span></div>
-          <div class="art" aria-hidden="true"><div class="orb"></div><div class="orbit one"></div><div class="orbit two"></div><span class="star a">✦</span><span class="star b">✧</span><span class="star c">✦</span></div>
+          <div class="art" aria-hidden="true"><span class="card-symbol">✦</span><span class="art-number">01</span></div>
           <div class="card-footer"><span>CARTA 001</span><strong>El comienzo</strong><p>Todo empieza con un sobre.</p></div>
         </article>
       </div>
-      <div class="envelope-front" aria-hidden="true"><div class="fold left"></div><div class="fold right"></div><div class="fold bottom"></div><span class="envelope-label">ABRIDOR<br><small>SIMULEITOR</small></span></div>
-      <button class="flap" id="open" aria-label="Tocar la punta y abrir el sobre"><span class="seal">✦</span></button>
+      <div class="envelope-front" aria-hidden="true"><span class="pack-edition">PRIMERA EDICIÓN / 001</span><span class="pack-symbol">✦</span><span class="envelope-label">ABRIDOR<br>SIMULEITOR</span><span class="pack-bottom">1 CARTA · ABRÍ Y DESCUBRÍ</span></div>
+      <button class="flap" id="open" aria-label="Tocar la esquina superior y abrir el paquete"><span class="seal">ABRIR ↗</span></button>
     </div>
-    <p id="instruction" class="instruction" aria-live="polite">Tocá la punta del sobre</p>
+    <p id="instruction" class="instruction" aria-live="polite">Tocá la esquina de arriba</p>
     <div class="controls"><button id="motion" type="button" aria-pressed="false" hidden>Activar movimiento</button><button id="reset" type="button" hidden>Abrir otro sobre</button></div>
     <p id="motion-hint" class="hint" hidden></p>
     <p id="update-status" class="hint" role="status"></p>
   </main>
-  <script type="module" src="./app.js?v=1.0.0"></script>
+  <script type="module" src="./app.js?v=1.1.0"></script>
 </body>
 </html>

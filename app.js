@@ -1,6 +1,6 @@
-import { APP_VERSION } from './version.js?v=1.0.0';
-import { initCardMotion } from './card-motion.js?v=1.0.0';
-import { initUpdater } from './updater.js?v=1.0.0';
+import { APP_VERSION } from './version.js?v=1.1.0';
+import { initCardMotion } from './card-motion.js?v=1.1.0';
+import { initUpdater } from './updater.js?v=1.1.0';
 
 const scene = document.getElementById('scene');
 const open = document.getElementById('open');
@@ -47,7 +47,7 @@ reset.addEventListener('click', () => {
   open.disabled = false;
   reset.hidden = true;
   motion.hidden = true;
-  instruction.textContent = 'Tocá la punta del sobre';
+  instruction.textContent = 'Tocá la esquina de arriba';
   card.dispatchEvent(new Event('cardchange'));
   open.focus({ preventScroll: true });
 });

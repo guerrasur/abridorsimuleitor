@@ -1,9 +1,10 @@
 # Instrucciones del proyecto
 
 ## Alcance y estética
-- Prototipo estático, mobile-first, sin dependencias ni build. Fondo blanco, textos mínimos y neutros.
-- Mantener la secuencia: tocar la punta del sobre, abrir la solapa, sacar la carta y permitir inspeccionarla.
+- Prototipo estático, mobile-first, sin dependencias ni build. Fondo blanco, sobre y carta exclusivamente en blanco y negro. Colores planos, contraste fuerte; sin degradados decorativos ni sombras difusas. Textos mínimos y neutros.
+- Mantener la secuencia: tocar la esquina del paquete vertical de figuritas, desprender el borde superior sellado, sacar la carta y permitir inspeccionarla.
 - La carta adapta `public/card-motion.js` y el reflejo `.certificate::after` de `guerrasur/rifavital`. Conservar calibración inicial, límite de inclinación, soporte de orientación de pantalla, permiso de Safari desde un toque explícito y alternativas de mouse/dedo.
+- El sobre debe parecer un paquete de cartas/figuritas, con sellos superior e inferior dentados, nunca un sobre postal con solapa triangular. Mantener el reflejo móvil de la carta en escala de grises.
 - Respetar `prefers-reduced-motion`. Los sensores requieren HTTPS y validación física en celular; no afirmar que una prueba simulada verifica el giroscopio real.
 
 ## Actualizaciones obligatorias
