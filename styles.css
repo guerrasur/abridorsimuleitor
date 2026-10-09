@@ -63,3 +63,8 @@ main{display:block;justify-content:center;align-items:center}
 .flap{background:#fff;color:#000;border-left:2px solid #000;border-right:2px solid #000;border-bottom:2px dashed #000}
 .flap::before{content:"";position:absolute;left:0;right:0;top:0;height:9px;background:#000;clip-path:polygon(0 8px,4% 0,8% 8px,12% 0,16% 8px,20% 0,24% 8px,28% 0,32% 8px,36% 0,40% 8px,44% 0,48% 8px,52% 0,56% 8px,60% 0,64% 8px,68% 0,72% 8px,76% 0,80% 8px,84% 0,88% 8px,92% 0,96% 8px,100% 0,100% 2px,96% 10px,92% 2px,88% 10px,84% 2px,80% 10px,76% 2px,72% 10px,68% 2px,64% 10px,60% 2px,56% 10px,52% 2px,48% 10px,44% 2px,40% 10px,36% 2px,32% 10px,28% 2px,24% 10px,20% 2px,16% 10px,12% 2px,8% 10px,4% 2px,0 10px)}
 .pack-star{position:absolute;width:112px;height:112px;left:50%;top:47%;transform:translate(-50%,-50%);fill:#000;pointer-events:none}
+
+.card::after{background:linear-gradient(120deg,transparent 40%,rgba(134,189,255,.38) 46%,rgba(255,255,255,.8) 49.5%,rgba(217,158,255,.36) 51%,rgba(255,222,150,.32) 54%,transparent 60%);background-size:240% 240%;background-position:var(--card-shine-x,50%) var(--card-shine-y,50%);opacity:.6}
+.scene.opened .envelope-front,.scene.opened .envelope-back{transform:translateY(200vh) rotate(16deg);opacity:1;visibility:hidden}
+.scene.opened .flap{visibility:hidden;opacity:1}
+@keyframes tear-strip{0%{transform:translate(0,0) rotate(0deg);opacity:1}35%{transform:translate(8px,-10px) rotate(7deg);opacity:1}65%{transform:translate(60px,-65px) rotate(28deg);opacity:1}100%{transform:translate(100vw,-80vh) rotate(85deg);opacity:1}}

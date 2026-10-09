@@ -1,7 +1,7 @@
-import { generateCharacter, isCharacter, normalizeCharacter, renderCharacter, characterName, characterDescription, TRAITS } from './characters.js?v=1.5.2';
-import { APP_VERSION } from './version.js?v=1.5.2';
-import { initCardMotion } from './card-motion.js?v=1.5.2';
-import { initUpdater } from './updater.js?v=1.5.2';
+import { generateCharacter, isCharacter, normalizeCharacter, renderCharacter, characterName, characterDescription, TRAITS } from './characters.js?v=1.5.3';
+import { APP_VERSION } from './version.js?v=1.5.3';
+import { initCardMotion } from './card-motion.js?v=1.5.3';
+import { initUpdater } from './updater.js?v=1.5.3';
 
 const scene = document.getElementById('scene');
 const open = document.getElementById('open');
@@ -49,8 +49,9 @@ open.addEventListener('click', async () => {
   await wait(480);
   scene.classList.add('revealing');
   if (!reducedMotion.matches && typeof lift.animate === 'function') {
-    // The card rises as the empty wrapper slides away; it settles at screen center.
+    // The card rises; the opaque wrapper drops completely beyond the viewport.
     const rise = Math.max(35, Math.min(135, scene.getBoundingClientRect().top - 35));
+    const drop = window.innerHeight * 2 + 420;
     const animations = [
       lift.animate([
         { transform: 'translateY(30px) scale(.94)', opacity: 1, offset: 0 },
@@ -59,9 +60,10 @@ open.addEventListener('click', async () => {
       ], { duration: 1450, easing: 'cubic-bezier(.22,.8,.25,1)', fill: 'forwards' }),
       ...['.envelope-front', '.envelope-back'].map(selector => scene.querySelector(selector).animate([
         { transform: 'translateY(0) rotate(0deg)', opacity: 1, offset: 0 },
-        { transform: 'translateY(24px) rotate(1deg)', opacity: 1, offset: .28 },
-        { transform: 'translateY(265px) rotate(7deg)', opacity: 0, offset: 1 }
-      ], { duration: 1450, easing: 'cubic-bezier(.45,0,.25,1)', fill: 'forwards' }))
+        { transform: 'translateY(18px) rotate(0deg)', opacity: 1, offset: .35 },
+        { transform: 'translateY(155px) rotate(4deg)', opacity: 1, offset: .65 },
+        { transform: `translateY(${drop}px) rotate(16deg)`, opacity: 1, offset: 1 }
+      ], { duration: 1450, easing: 'cubic-bezier(.45,0,.8,.45)', fill: 'forwards' }))
     ];
     await Promise.all(animations.map(animation => animation.finished.catch(() => {})));
     showCard();

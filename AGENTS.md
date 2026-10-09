@@ -4,7 +4,7 @@
 - Prototipo estático, mobile-first, sin dependencias ni build. Fondo blanco, sobre y marco de carta en blanco y negro; personajes con colores extravagantes planos. Colores planos, contraste fuerte; sin degradados decorativos ni sombras difusas. Textos mínimos y neutros.
 - Mantener la secuencia: tocar la esquina del paquete vertical de figuritas, desprender el borde superior sellado, sacar la carta y permitir inspeccionarla.
 - La carta adapta `public/card-motion.js` y el reflejo `.certificate::after` de `guerrasur/rifavital`. Conservar calibración inicial, límite de inclinación, soporte de orientación de pantalla, permiso de Safari desde un toque explícito y alternativas de mouse/dedo.
-- El sobre debe parecer un paquete de cartas/figuritas, con sellos superior e inferior dentados, nunca un sobre postal con solapa triangular. Mantener el reflejo móvil de la carta en escala de grises.
+- El sobre debe parecer un paquete de cartas/figuritas, con sellos superior e inferior dentados, nunca un sobre postal con solapa triangular. Reflejo móvil multicolor inspirado en rifavital: azul, violeta y dorado.
 - Respetar `prefers-reduced-motion`. Los sensores requieren HTTPS y validación física en celular; no afirmar que una prueba simulada verifica el giroscopio real.
 
 ## Actualizaciones obligatorias
@@ -36,8 +36,10 @@ Mecánica adaptada de `guerrasur/suiload-web/web/device.js`.
 - Cortar cada palabra NFC por cantidad de letras, dando la letra extra a la primera mitad. Cuatro elecciones independientes: inicio de nombre + final de nombre, inicio de apellido + final de apellido. Conservar tildes y capitalizar solo el inicio de cada palabra.
 - Schema 3 guarda los cuatro índices en nameParts; cartas anteriores conservan su nombre y apariencia con legacyName al actualizar. No asociar identidad o rasgos al género del nombre.
 
-- Desde v1.5.0 centrar el paquete en el viewport, independientemente de los controles. Mantener paquete alargado y texto mínimo. Animación en dos fases: desprender tira sellada; sacar carta mientras baja el envoltorio y asentar carta en el centro. Esperar animation.finished antes de marcar la app libre para actualizar.
+- Desde v1.5.0 centrar el paquete en el viewport, independientemente de los controles. Mantener paquete alargado y texto mínimo. Animación en dos fases: desprender tira sellada; sacar carta mientras cae el envoltorio fuera de la pantalla, siempre opaco y asentar carta en el centro. Esperar animation.finished antes de marcar la app libre para actualizar.
 
 - Desde v1.5.1 el sobre no lleva texto ni emojis. Usar centrado absoluto con left/top 50% y translate(-50%,-50%), también en breakpoints bajos. La instrucción de apertura solo se anuncia a lectores de pantalla.
 
 - Desde v1.5.2 el sobre es blanco con contornos, sellos y detalles negros. Lleva una estrella negra de cuatro puntas centrada, dibujada en SVG; no usar glifos que puedan mostrarse como emoji.
+
+- Desde v1.5.3 no desvanecer el sobre ni la tira: salen físicamente del viewport. Mantener opacity:1 en todos sus keyframes y ocultarlos solo cuando ya estén fuera de pantalla.
