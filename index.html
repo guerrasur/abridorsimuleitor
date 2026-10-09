@@ -5,18 +5,18 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#ffffff">
   <title>Abridor Simuleitor</title>
-  <link rel="stylesheet" href="./styles.css?v=1.1.0">
+  <link rel="stylesheet" href="./styles.css?v=1.2.0">
 </head>
 <body>
-  <header><span>Abridor Simuleitor <small id="version">v1.1.0</small></span><button id="update" type="button">Actualizar</button></header>
+  <header><span>Abridor Simuleitor <small id="version">v1.2.0</small></span><button id="update" type="button">Actualizar</button></header>
   <main>
     <div class="scene" id="scene">
       <div class="envelope-back" aria-hidden="true"></div>
       <div class="card-lift" id="card-lift" inert>
         <article class="card" id="card" aria-label="Carta holográfica número uno">
           <div class="card-heading"><span>PRIMERA EDICIÓN</span><span>001</span></div>
-          <div class="art" aria-hidden="true"><span class="card-symbol">✦</span><span class="art-number">01</span></div>
-          <div class="card-footer"><span>CARTA 001</span><strong>El comienzo</strong><p>Todo empieza con un sobre.</p></div>
+          <div class="art character-art" id="character-art"></div>
+          <div class="card-footer"><span>CARTA 001</span><strong id="character-name">Personaje sorpresa</strong><p id="character-traits">Una combinación en cada sobre.</p></div>
         </article>
       </div>
       <div class="envelope-front" aria-hidden="true"><span class="pack-edition">PRIMERA EDICIÓN / 001</span><span class="pack-symbol">✦</span><span class="envelope-label">ABRIDOR<br>SIMULEITOR</span><span class="pack-bottom">1 CARTA · ABRÍ Y DESCUBRÍ</span></div>
@@ -27,6 +27,6 @@
     <p id="motion-hint" class="hint" hidden></p>
     <p id="update-status" class="hint" role="status"></p>
   </main>
-  <script type="module" src="./app.js?v=1.1.0"></script>
+  <script type="module" src="./app.js?v=1.2.0"></script>
 </body>
 </html>

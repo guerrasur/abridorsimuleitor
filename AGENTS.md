@@ -1,7 +1,7 @@
 # Instrucciones del proyecto
 
 ## Alcance y estética
-- Prototipo estático, mobile-first, sin dependencias ni build. Fondo blanco, sobre y carta exclusivamente en blanco y negro. Colores planos, contraste fuerte; sin degradados decorativos ni sombras difusas. Textos mínimos y neutros.
+- Prototipo estático, mobile-first, sin dependencias ni build. Fondo blanco, sobre y marco de carta en blanco y negro; personajes con colores extravagantes planos. Colores planos, contraste fuerte; sin degradados decorativos ni sombras difusas. Textos mínimos y neutros.
 - Mantener la secuencia: tocar la esquina del paquete vertical de figuritas, desprender el borde superior sellado, sacar la carta y permitir inspeccionarla.
 - La carta adapta `public/card-motion.js` y el reflejo `.certificate::after` de `guerrasur/rifavital`. Conservar calibración inicial, límite de inclinación, soporte de orientación de pantalla, permiso de Safari desde un toque explícito y alternativas de mouse/dedo.
 - El sobre debe parecer un paquete de cartas/figuritas, con sellos superior e inferior dentados, nunca un sobre postal con solapa triangular. Mantener el reflejo móvil de la carta en escala de grises.
@@ -22,3 +22,9 @@ Mecánica adaptada de `guerrasur/suiload-web/web/device.js`.
 - Comprobar viewport de celular y escritorio, apertura, repetición, reflejo con mouse/dedo, permiso de sensores y movimiento reducido.
 - Probar actualización a una versión mayor, pausa durante apertura, restauración del estado, error de red y versión igual/menor.
 - El despliegue no se asume: informar por separado si solo se guardaron cambios en el repo.
+
+## Personajes procedurales
+- `characters.js` separa cabeza, piel, pelo, color de pelo, ojos, nariz, boca, ropa y color de ropa. El cuerpo base es siempre el mismo.
+- Dibujos SVG por capas, colores planos y contornos negros. Mantener todas las combinaciones dentro del viewBox y la cara legible.
+- Generar exactamente una vez al abrir cada sobre, nunca al mover la carta. Preservar el mismo personaje después de la actualización automática y validar los índices al restaurar.
+- Ampliar variantes en TRAITS junto con sus dibujos/paletas; incrementar schema si cambia el significado de índices existentes.

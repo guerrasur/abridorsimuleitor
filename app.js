@@ -1,6 +1,7 @@
-import { APP_VERSION } from './version.js?v=1.1.0';
-import { initCardMotion } from './card-motion.js?v=1.1.0';
-import { initUpdater } from './updater.js?v=1.1.0';
+import { generateCharacter, isCharacter, renderCharacter, characterName, characterDescription, TRAITS } from './characters.js?v=1.2.0';
+import { APP_VERSION } from './version.js?v=1.2.0';
+import { initCardMotion } from './card-motion.js?v=1.2.0';
+import { initUpdater } from './updater.js?v=1.2.0';
 
 const scene = document.getElementById('scene');
 const open = document.getElementById('open');
@@ -11,6 +12,15 @@ const lift = document.getElementById('card-lift');
 const instruction = document.getElementById('instruction');
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 let state = 'closed';
+let character = null;
+function paintCharacter() {
+  document.getElementById('character-art').innerHTML = renderCharacter(character);
+  document.getElementById('character-name').textContent = characterName(character);
+  const t = character.traits;
+  document.getElementById('character-traits').textContent = `${TRAITS.skin[t.skin]} · ${TRAITS.head[t.head]} · ${TRAITS.outfit[t.outfit]}`;
+  card.setAttribute('aria-label', `${characterName(character)}. ${characterDescription(character)}`);
+  card.title = characterDescription(character);
+}
 const wait = ms => new Promise(resolve => setTimeout(resolve, reducedMotion.matches ? 0 : ms));
 
 initCardMotion(card, motion, document.getElementById('motion-hint'));
@@ -31,6 +41,8 @@ function showCard() {
 open.addEventListener('click', async () => {
   if (state !== 'closed') return;
   state = 'opening';
+  character = generateCharacter();
+  paintCharacter();
   open.disabled = true;
   instruction.textContent = 'Abriendo…';
   scene.classList.add('opening');
@@ -54,11 +66,16 @@ reset.addEventListener('click', () => {
 
 // Restore the revealed card after an automatic update instead of interrupting it.
 try {
-  if (sessionStorage.getItem('abridor-reveal') === 'opened') showCard();
+  const saved = JSON.parse(sessionStorage.getItem('abridor-character') || 'null');
+  if (sessionStorage.getItem('abridor-reveal') === 'opened') {
+    character = isCharacter(saved) ? saved : generateCharacter();
+    paintCharacter();
+    showCard();
+  }
   sessionStorage.removeItem('abridor-reveal');
 } catch {}
 
 initUpdater(APP_VERSION, {
   isBusy: () => state === 'opening',
-  saveState: () => { try { sessionStorage.setItem('abridor-reveal', state); } catch {} }
+  saveState: () => { try { sessionStorage.setItem('abridor-reveal', state); sessionStorage.setItem('abridor-character', JSON.stringify(character)); } catch {} }
 });
