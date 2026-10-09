@@ -46,11 +46,17 @@ Mecánica adaptada de `guerrasur/suiload-web/web/device.js`.
 
 - Desde v1.6.0 arrastrar el sello superior al menos 60px y soltar abre el sobre. La tira sigue el dedo y la animación continúa desde esa posición. Arrastres cortos/cancelados vuelven al inicio; conservar tap y teclado como alternativas. Pointer capture, bloqueo de clic sintético después de arrastrar y actualización pospuesta durante el gesto.
 
-- Desde v1.8.0 la apertura termina en peek: carta asomada, sobre quieto. Arrastrar carta hacia arriba al menos 80px y soltar completa la extracción y recién entonces cae el sobre. Cancelar vuelve a peek. Enter/Espacio como alternativa accesible. Restaurar peek y personaje al actualizar; evitar sensor/inclinación durante extracción.
+- Desde v1.9.0 la apertura termina en peek: carta asomada, sobre quieto. Arrastrar carta hacia arriba al menos 80px y soltar completa la extracción y recién entonces cae el sobre. Cancelar vuelve a peek. Enter/Espacio como alternativa accesible. Restaurar peek y personaje al actualizar; evitar sensor/inclinación durante extracción.
 
-## Edición fija de 89 cartas (v1.8.0)
+## Edición fija de 89 cartas (v1.9.0)
 - `catalog.js` guarda los 89 personajes como datos inmutables, numerados 1–89. No regenerar ni renumerar cartas existentes al iniciar, abrir sobres o ampliar rasgos.
 - Los sobres usan exclusivamente `pickCard()`, con elección uniforme. 001 Clauan Medález y 002 Jorvia Fernása reproducen las referencias; 004 Cuasi Mota es el homenaje amarillo con hocico largo y bloque rojo.
 - Visor simple anterior/siguiente con vuelta circular; volver al sobre restaura carta y estado anteriores. No implica colección, inventario ni desbloqueo.
 - Convertir desplazamiento del dedo a píxeles de escena; umbral 80, resistencia suave al tirar de más. Cancelaciones retornan con resorte y mantienen bloqueada la actualización hasta finalizar.
 - Durante extracción conservar carta arriba y detrás del envoltorio hasta que este se aparte; después asentar en el centro. Sin salto de capas ni desvanecimiento.
+
+## Acabados y rareza (v1.9.0)
+- Cada personaje tiene edición normal, rara naranja plana y superrara con foil multicolor reflectivo. No cambiar números, nombres ni rasgos de catálogo por rareza.
+- Sobres: 75% normal, 20% rara, 5% superrara; sortear una sola vez por sobre con `rollEdition()`. Guardar edición real al actualizar.
+- Botón Edición en la carta extraída y el visor: recorre los tres acabados como prueba visual. No cambia el sorteo real; al volver al sobre se restaura su edición. El visor mantiene la prueba al cambiar de personaje.
+- Reflejo foil sigue las mismas variables de mouse/dedo/sensor. Con movimiento reducido permanece estático y conserva legibilidad y contraste.

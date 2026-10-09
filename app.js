@@ -1,10 +1,11 @@
-import { CATALOG, pickCard, catalogCard } from './catalog.js?v=1.8.0';
-import { initCardPull } from './card-pull.js?v=1.8.0';
-import { initPackSwipe } from './pack-swipe.js?v=1.8.0';
-import { generateCharacter, isCharacter, normalizeCharacter, renderCharacter, characterName, characterDescription, TRAITS } from './characters.js?v=1.8.0';
-import { APP_VERSION } from './version.js?v=1.8.0';
-import { initCardMotion } from './card-motion.js?v=1.8.0';
-import { initUpdater } from './updater.js?v=1.8.0';
+import { EDITIONS, EDITION_LABELS, validEdition, rollEdition } from './editions.js?v=1.9.0';
+import { CATALOG, pickCard, catalogCard } from './catalog.js?v=1.9.0';
+import { initCardPull } from './card-pull.js?v=1.9.0';
+import { initPackSwipe } from './pack-swipe.js?v=1.9.0';
+import { generateCharacter, isCharacter, normalizeCharacter, renderCharacter, characterName, characterDescription, TRAITS } from './characters.js?v=1.9.0';
+import { APP_VERSION } from './version.js?v=1.9.0';
+import { initCardMotion } from './card-motion.js?v=1.9.0';
+import { initUpdater } from './updater.js?v=1.9.0';
 
 const scene = document.getElementById('scene');
 const open = document.getElementById('open');
@@ -16,6 +17,22 @@ const instruction = document.getElementById('instruction');
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 let state = 'closed';
 let character = null;
+let edition = 'normal', previewEdition = null;
+const editionButton = document.getElementById('edition');
+function paintEdition() {
+  const current = previewEdition || edition;
+  card.dataset.edition = current;
+  editionButton.textContent = `Edición: ${EDITION_LABELS[current]}`;
+  editionButton.setAttribute('aria-label', `Probar edición. Actual: ${EDITION_LABELS[current]}. Cambiar a ${EDITION_LABELS[EDITIONS[(EDITIONS.indexOf(current) + 1) % 3]]}`);
+  document.getElementById('edition-label').textContent = current === 'normal' ? 'PRIMERA EDICIÓN' : `EDICIÓN ${EDITION_LABELS[current].toUpperCase()}`;
+  if (character) card.setAttribute('aria-label', `${characterName(character)}. Edición ${EDITION_LABELS[current]}. ${characterDescription(character)}`);
+}
+editionButton.addEventListener('click', () => {
+  if (state !== 'opened') return;
+  const current = previewEdition || edition;
+  previewEdition = EDITIONS[(EDITIONS.indexOf(current) + 1) % 3];
+  paintEdition();
+});
 let browsing = false, previousCard = null, previousState = 'closed';
 const album = document.getElementById('album');
 const browseControls = document.getElementById('browse-controls');
@@ -31,6 +48,7 @@ function paintCharacter() {
   document.getElementById('character-traits').textContent = `${TRAITS.skin[t.skin]} · ${TRAITS.head[t.head]} · ${TRAITS.outfit[t.outfit]}`;
   card.setAttribute('aria-label', `${characterName(character)}. ${characterDescription(character)}`);
   card.title = characterDescription(character);
+  paintEdition();
 }
 const wait = ms => new Promise(resolve => setTimeout(resolve, reducedMotion.matches ? 0 : ms));
 
@@ -47,6 +65,7 @@ function showCard() {
   lift.removeAttribute('tabindex');
   lift.style.removeProperty('transform');
   instruction.textContent = 'Mové la carta para ver el reflejo';
+  editionButton.hidden = false;
   reset.hidden = browsing;
   album.disabled = false;
   motion.hidden = !sensorAvailable || reducedMotion.matches;
@@ -58,6 +77,7 @@ async function openPack() {
   state = 'opening';
   album.disabled = true;
   character = pickCard();
+  edition = rollEdition(); previewEdition = null;
   paintCharacter();
   open.disabled = true;
   instruction.textContent = 'Abriendo…';
@@ -80,6 +100,7 @@ function showPeek() {
   state = 'peek';
   album.disabled = false;
   scene.className = 'scene peek';
+  editionButton.hidden = true;
   reset.hidden = true; motion.hidden = true; open.disabled = true;
   lift.inert = false;
   lift.setAttribute('role', 'button');
@@ -140,6 +161,7 @@ open.addEventListener('click', openPack);
 
 reset.addEventListener('click', () => {
   state = 'closed';
+  previewEdition = null; editionButton.hidden = true;
   swipe.reset();
   pull.reset();
   lift.style.removeProperty('transform');
@@ -160,11 +182,13 @@ album.addEventListener('click', () => {
   if (!['closed', 'peek', 'opened'].includes(state) || pull.isDragging() || swipe.isDragging()) return;
   if (!browsing) {
     previousCard = character; previousState = state; browsing = true;
+    previewEdition = edition;
     character = catalogCard(character?.number) || CATALOG[0];
     album.textContent = 'Volver al sobre'; browseControls.hidden = false;
     paintCharacter(); showCard();
   } else {
     browsing = false; album.textContent = 'Ver personajes'; browseControls.hidden = true;
+    previewEdition = null;
     character = previousCard;
     if (character) paintCharacter();
     if (previousState === 'peek') showPeek();
@@ -186,6 +210,7 @@ try {
   const savedState = sessionStorage.getItem('abridor-reveal');
   if (['opened', 'peek'].includes(savedState)) {
     character = catalogCard(saved?.number) || pickCard();
+    edition = validEdition(sessionStorage.getItem('abridor-edition'));
     paintCharacter();
     if (savedState === 'peek') showPeek(); else showCard();
   }
@@ -194,5 +219,5 @@ try {
 
 initUpdater(APP_VERSION, {
   isBusy: () => ['opening', 'extracting', 'returning'].includes(state) || swipe.isDragging() || pull.isDragging(),
-  saveState: () => { try { sessionStorage.setItem('abridor-reveal', browsing ? previousState : state); sessionStorage.setItem('abridor-character', JSON.stringify(browsing ? previousCard : character)); } catch {} }
+  saveState: () => { try { sessionStorage.setItem('abridor-edition', edition); sessionStorage.setItem('abridor-reveal', browsing ? previousState : state); sessionStorage.setItem('abridor-character', JSON.stringify(browsing ? previousCard : character)); } catch {} }
 });

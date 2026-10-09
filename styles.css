@@ -90,3 +90,16 @@ main{display:block;justify-content:center;align-items:center}
 .browse-controls button{border:1px solid #000;background:#fff;color:#000;width:42px;height:34px}
 @media(max-height:700px){.browse-controls{top:calc(50% + 257px)}}
 @media(max-height:560px){.browse-controls{top:calc(50% + 217px)}}
+
+/* Flat orange ink for rare cards; foil is reserved for the superrare finish. */
+.card[data-edition="rare"]{background:#ff8a24}
+.card[data-edition="rare"] .character-art{background:#ffc17b}
+.card[data-edition="rare"]::after{opacity:.3}
+.card[data-edition="superrare"]{background:#e7e9ee}
+.card[data-edition="superrare"] .character-art{background:transparent}
+.card[data-edition="superrare"]::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;background:repeating-linear-gradient(125deg,#d7e9fa 0%,#f4d7ed 18%,#fff3c8 36%,#d3f1e8 54%,#d7e9fa 72%);background-size:220% 220%;background-position:var(--card-shine-x,50%) var(--card-shine-y,50%);opacity:.8;transition:background-position .16s ease-out}
+.card[data-edition="superrare"]>div{position:relative;z-index:1}
+.card[data-edition="superrare"]::after{background:linear-gradient(115deg,transparent 25%,rgba(112,199,255,.4) 37%,rgba(255,255,255,.95) 45%,rgba(218,124,255,.55) 50%,rgba(255,220,119,.5) 55%,transparent 67%);background-size:260% 260%;background-position:var(--card-shine-x,50%) var(--card-shine-y,50%);opacity:.9}
+.browse-controls{top:calc(50% + 330px)}
+@media(max-height:700px){.browse-controls{top:calc(50% + 287px)}}
+@media(max-height:560px){.browse-controls{top:calc(50% + 247px)}}
