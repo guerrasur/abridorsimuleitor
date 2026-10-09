@@ -35,3 +35,5 @@ Mecánica adaptada de `guerrasur/suiload-web/web/device.js`.
 - `names.js` contiene los top 20 nombres y top 20 apellidos de Argentina del ranking general de Forebears, sin filtrar por género. Fuentes: https://forebears.io/argentina/forenames y https://forebears.io/argentina/surnames (consulta 2026-10-09). No presentarlo como ranking oficial actualizado del RENAPER.
 - Cortar cada palabra NFC por cantidad de letras, dando la letra extra a la primera mitad. Cuatro elecciones independientes: inicio de nombre + final de nombre, inicio de apellido + final de apellido. Conservar tildes y capitalizar solo el inicio de cada palabra.
 - Schema 3 guarda los cuatro índices en nameParts; cartas anteriores conservan su nombre y apariencia con legacyName al actualizar. No asociar identidad o rasgos al género del nombre.
+
+- Desde v1.5.0 centrar el paquete en el viewport, independientemente de los controles. Mantener paquete alargado y texto mínimo. Animación en dos fases: desprender tira sellada; sacar carta mientras baja el envoltorio y asentar carta en el centro. Esperar animation.finished antes de marcar la app libre para actualizar.

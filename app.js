@@ -1,7 +1,7 @@
-import { generateCharacter, isCharacter, normalizeCharacter, renderCharacter, characterName, characterDescription, TRAITS } from './characters.js?v=1.4.0';
-import { APP_VERSION } from './version.js?v=1.4.0';
-import { initCardMotion } from './card-motion.js?v=1.4.0';
-import { initUpdater } from './updater.js?v=1.4.0';
+import { generateCharacter, isCharacter, normalizeCharacter, renderCharacter, characterName, characterDescription, TRAITS } from './characters.js?v=1.5.0';
+import { APP_VERSION } from './version.js?v=1.5.0';
+import { initCardMotion } from './card-motion.js?v=1.5.0';
+import { initUpdater } from './updater.js?v=1.5.0';
 
 const scene = document.getElementById('scene');
 const open = document.getElementById('open');
@@ -46,10 +46,30 @@ open.addEventListener('click', async () => {
   open.disabled = true;
   instruction.textContent = 'Abriendo…';
   scene.classList.add('opening');
-  await wait(650);
+  await wait(480);
   scene.classList.add('revealing');
-  await wait(1200);
-  showCard();
+  if (!reducedMotion.matches && typeof lift.animate === 'function') {
+    // The card rises as the empty wrapper slides away; it settles at screen center.
+    const rise = Math.max(35, Math.min(135, scene.getBoundingClientRect().top - 35));
+    const animations = [
+      lift.animate([
+        { transform: 'translateY(30px) scale(.94)', opacity: 1, offset: 0 },
+        { transform: `translateY(${-rise}px) scale(.98) rotate(-2deg)`, opacity: 1, offset: .62 },
+        { transform: 'translateY(0) scale(1) rotate(0deg)', opacity: 1, offset: 1 }
+      ], { duration: 1450, easing: 'cubic-bezier(.22,.8,.25,1)', fill: 'forwards' }),
+      ...['.envelope-front', '.envelope-back'].map(selector => scene.querySelector(selector).animate([
+        { transform: 'translateY(0) rotate(0deg)', opacity: 1, offset: 0 },
+        { transform: 'translateY(24px) rotate(1deg)', opacity: 1, offset: .28 },
+        { transform: 'translateY(265px) rotate(7deg)', opacity: 0, offset: 1 }
+      ], { duration: 1450, easing: 'cubic-bezier(.45,0,.25,1)', fill: 'forwards' }))
+    ];
+    await Promise.all(animations.map(animation => animation.finished.catch(() => {})));
+    showCard();
+    animations.forEach(animation => animation.cancel());
+  } else {
+    await wait(1200);
+    showCard();
+  }
 });
 
 reset.addEventListener('click', () => {
