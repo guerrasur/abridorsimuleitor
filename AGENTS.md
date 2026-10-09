@@ -38,4 +38,6 @@ Mecánica adaptada de `guerrasur/suiload-web/web/device.js`.
 
 - Desde v1.5.0 centrar el paquete en el viewport, independientemente de los controles. Mantener paquete alargado y texto mínimo. Animación en dos fases: desprender tira sellada; sacar carta mientras baja el envoltorio y asentar carta en el centro. Esperar animation.finished antes de marcar la app libre para actualizar.
 
-- Desde v1.5.1 el sobre no lleva texto, símbolos ni emojis. Usar centrado absoluto con left/top 50% y translate(-50%,-50%), también en breakpoints bajos. La instrucción de apertura solo se anuncia a lectores de pantalla.
+- Desde v1.5.1 el sobre no lleva texto ni emojis. Usar centrado absoluto con left/top 50% y translate(-50%,-50%), también en breakpoints bajos. La instrucción de apertura solo se anuncia a lectores de pantalla.
+
+- Desde v1.5.2 el sobre es blanco con contornos, sellos y detalles negros. Lleva una estrella negra de cuatro puntas centrada, dibujada en SVG; no usar glifos que puedan mostrarse como emoji.
