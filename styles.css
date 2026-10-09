@@ -68,3 +68,7 @@ main{display:block;justify-content:center;align-items:center}
 .scene.opened .envelope-front,.scene.opened .envelope-back{transform:translateY(200vh) rotate(16deg);opacity:1;visibility:hidden}
 .scene.opened .flap{visibility:hidden;opacity:1}
 @keyframes tear-strip{0%{transform:translate(0,0) rotate(0deg);opacity:1}35%{transform:translate(8px,-10px) rotate(7deg);opacity:1}65%{transform:translate(60px,-65px) rotate(28deg);opacity:1}100%{transform:translate(100vw,-80vh) rotate(85deg);opacity:1}}
+
+.flap{touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab;min-height:44px}
+.flap.dragging{animation:none;transform:translate(var(--tear-x,0px),var(--tear-y,0px)) rotate(var(--tear-angle,0deg));cursor:grabbing;opacity:1}
+@keyframes tear-strip{0%{transform:translate(var(--tear-x,0px),var(--tear-y,0px)) rotate(var(--tear-angle,0deg));opacity:1}35%{transform:translate(calc(var(--tear-x,0px) + 8px),calc(var(--tear-y,0px) - 10px)) rotate(7deg);opacity:1}65%{transform:translate(60px,-65px) rotate(28deg);opacity:1}100%{transform:translate(100vw,-80vh) rotate(85deg);opacity:1}}

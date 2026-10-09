@@ -1,7 +1,8 @@
-import { generateCharacter, isCharacter, normalizeCharacter, renderCharacter, characterName, characterDescription, TRAITS } from './characters.js?v=1.5.3';
-import { APP_VERSION } from './version.js?v=1.5.3';
-import { initCardMotion } from './card-motion.js?v=1.5.3';
-import { initUpdater } from './updater.js?v=1.5.3';
+import { initPackSwipe } from './pack-swipe.js?v=1.6.0';
+import { generateCharacter, isCharacter, normalizeCharacter, renderCharacter, characterName, characterDescription, TRAITS } from './characters.js?v=1.6.0';
+import { APP_VERSION } from './version.js?v=1.6.0';
+import { initCardMotion } from './card-motion.js?v=1.6.0';
+import { initUpdater } from './updater.js?v=1.6.0';
 
 const scene = document.getElementById('scene');
 const open = document.getElementById('open');
@@ -38,7 +39,7 @@ function showCard() {
   window.dispatchEvent(new Event('abridor-idle'));
 }
 
-open.addEventListener('click', async () => {
+async function openPack() {
   if (state !== 'closed') return;
   state = 'opening';
   character = generateCharacter();
@@ -72,10 +73,18 @@ open.addEventListener('click', async () => {
     await wait(1200);
     showCard();
   }
+}
+
+const swipe = initPackSwipe(open, {
+  canStart: () => state === 'closed',
+  onOpen: openPack,
+  onIdle: () => window.dispatchEvent(new Event('abridor-idle'))
 });
+open.addEventListener('click', openPack);
 
 reset.addEventListener('click', () => {
   state = 'closed';
+  swipe.reset();
   scene.className = 'scene';
   lift.inert = true;
   open.disabled = false;
@@ -98,6 +107,6 @@ try {
 } catch {}
 
 initUpdater(APP_VERSION, {
-  isBusy: () => state === 'opening',
+  isBusy: () => state === 'opening' || swipe.isDragging(),
   saveState: () => { try { sessionStorage.setItem('abridor-reveal', state); sessionStorage.setItem('abridor-character', JSON.stringify(character)); } catch {} }
 });

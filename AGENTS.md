@@ -43,3 +43,5 @@ Mecánica adaptada de `guerrasur/suiload-web/web/device.js`.
 - Desde v1.5.2 el sobre es blanco con contornos, sellos y detalles negros. Lleva una estrella negra de cuatro puntas centrada, dibujada en SVG; no usar glifos que puedan mostrarse como emoji.
 
 - Desde v1.5.3 no desvanecer el sobre ni la tira: salen físicamente del viewport. Mantener opacity:1 en todos sus keyframes y ocultarlos solo cuando ya estén fuera de pantalla.
+
+- Desde v1.6.0 arrastrar el sello superior al menos 60px y soltar abre el sobre. La tira sigue el dedo y la animación continúa desde esa posición. Arrastres cortos/cancelados vuelven al inicio; conservar tap y teclado como alternativas. Pointer capture, bloqueo de clic sintético después de arrastrar y actualización pospuesta durante el gesto.
