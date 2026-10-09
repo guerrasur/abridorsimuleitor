@@ -1,7 +1,7 @@
-import { generateCharacter, isCharacter, normalizeCharacter, renderCharacter, characterName, characterDescription, TRAITS } from './characters.js?v=1.5.0';
-import { APP_VERSION } from './version.js?v=1.5.0';
-import { initCardMotion } from './card-motion.js?v=1.5.0';
-import { initUpdater } from './updater.js?v=1.5.0';
+import { generateCharacter, isCharacter, normalizeCharacter, renderCharacter, characterName, characterDescription, TRAITS } from './characters.js?v=1.5.1';
+import { APP_VERSION } from './version.js?v=1.5.1';
+import { initCardMotion } from './card-motion.js?v=1.5.1';
+import { initUpdater } from './updater.js?v=1.5.1';
 
 const scene = document.getElementById('scene');
 const open = document.getElementById('open');

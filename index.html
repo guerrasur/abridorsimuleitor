@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#ffffff">
   <title>Abridor Simuleitor</title>
-  <link rel="stylesheet" href="./styles.css?v=1.5.0">
+  <link rel="stylesheet" href="./styles.css?v=1.5.1">
 </head>
 <body>
-  <header><span>Abridor Simuleitor <small id="version">v1.5.0</small></span><button id="update" type="button">Actualizar</button></header>
+  <header><span>Abridor Simuleitor <small id="version">v1.5.1</small></span><button id="update" type="button">Actualizar</button></header>
   <main>
     <div class="scene" id="scene">
       <div class="envelope-back" aria-hidden="true"></div>
@@ -19,14 +19,14 @@
           <div class="card-footer"><span>CARTA 001</span><strong id="character-name">Personaje sorpresa</strong><p id="character-traits">Una combinación en cada sobre.</p></div>
         </article>
       </div>
-      <div class="envelope-front" aria-hidden="true"><span class="pack-symbol">✦</span><span class="envelope-label">ABRIDOR</span><span class="pack-bottom">01</span></div>
-      <button class="flap" id="open" aria-label="Tocar la esquina superior y abrir el paquete"><span class="seal">↗</span></button>
+      <div class="envelope-front" aria-hidden="true"></div>
+      <button class="flap" id="open" aria-label="Tocar la esquina superior y abrir el paquete"></button>
     </div>
-    <p id="instruction" class="instruction" aria-live="polite">Tocá la esquina de arriba</p>
+    <p id="instruction" class="instruction" aria-live="polite"></p>
     <div class="controls"><button id="motion" type="button" aria-pressed="false" hidden>Activar movimiento</button><button id="reset" type="button" hidden>Abrir otro sobre</button></div>
     <p id="motion-hint" class="hint" hidden></p>
     <p id="update-status" class="hint" role="status"></p>
   </main>
-  <script type="module" src="./app.js?v=1.5.0"></script>
+  <script type="module" src="./app.js?v=1.5.1"></script>
 </body>
 </html>

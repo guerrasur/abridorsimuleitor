@@ -1,4 +1,4 @@
-import { generateNameParts, validNameParts, assembleName } from './names.js?v=1.5.0';
+import { generateNameParts, validNameParts, assembleName } from './names.js?v=1.5.1';
 // Independent layers: adding a trait does not require drawing every combination.
 export const TRAITS = Object.freeze({
   head: ['Cuadrada', 'Ovalada', 'Triangular', 'Diamante', 'Ancha', 'Asimétrica', 'Redonda', 'Corazón', 'Mandíbula', 'Pera'],

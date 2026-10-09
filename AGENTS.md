@@ -37,3 +37,5 @@ Mecánica adaptada de `guerrasur/suiload-web/web/device.js`.
 - Schema 3 guarda los cuatro índices en nameParts; cartas anteriores conservan su nombre y apariencia con legacyName al actualizar. No asociar identidad o rasgos al género del nombre.
 
 - Desde v1.5.0 centrar el paquete en el viewport, independientemente de los controles. Mantener paquete alargado y texto mínimo. Animación en dos fases: desprender tira sellada; sacar carta mientras baja el envoltorio y asentar carta en el centro. Esperar animation.finished antes de marcar la app libre para actualizar.
+
+- Desde v1.5.1 el sobre no lleva texto, símbolos ni emojis. Usar centrado absoluto con left/top 50% y translate(-50%,-50%), también en breakpoints bajos. La instrucción de apertura solo se anuncia a lectores de pantalla.

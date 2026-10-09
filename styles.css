@@ -49,3 +49,9 @@ main{position:absolute;inset:0;min-height:0;padding:0;display:grid;place-items:c
 @media(max-height:700px){.scene{width:225px;height:370px}.envelope-front,.envelope-back{height:340px}.pack-symbol{top:55px;font-size:133px}.envelope-label{top:247px;font-size:18px}.pack-bottom{bottom:44px}.card-lift{top:10px}.instruction{top:calc(50% + 191px)}.controls{top:calc(50% + 215px)}}
 @media(max-height:560px){.scene{transform:scale(.78)}.instruction{top:calc(50% + 151px)}.controls{top:calc(50% + 175px)}header{height:44px}}
 @media(prefers-reduced-motion:reduce){.scene.opening .flap{animation:none;opacity:0}}
+
+/* Explicit positioning avoids flex/grid alignment inherited from older breakpoints. */
+main{display:block;justify-content:center;align-items:center}
+.scene{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);margin:0}
+.instruction{width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;top:auto;left:auto;right:auto}
+@media(max-height:560px){.scene{transform:translate(-50%,-50%) scale(.78)}}
